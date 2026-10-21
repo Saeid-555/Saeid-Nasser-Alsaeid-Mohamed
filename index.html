@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saeid | Portfolio</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --portfolio-navy: #0b1220;
+            --portfolio-blue: #123b70;
+            --portfolio-sky: #28b8f2;
+            --portfolio-white: #f8fbff;
+            --portfolio-muted: #b8c4d6;
+        }
+
+        /* Navbar + hero only: preserve the remaining sections as they are. */
+        .navbar.navbar-dark.bg-dark {
+            background: #080f1c !important;
+            border-bottom: 1px solid rgba(40, 184, 242, .22);
+        }
+        .navbar .navbar-brand { color: var(--portfolio-white); }
+        .navbar .text-info,
+        #home .text-info { color: var(--portfolio-sky) !important; }
+        .navbar .nav-link {
+            color: #d7e2f0;
+            transition: color .2s ease;
+        }
+        .navbar .nav-link:hover,
+        .navbar .nav-link:focus { color: var(--portfolio-sky); }
+
+        #home {
+            position: relative;
+            overflow: hidden;
+            min-height: 680px;
+            display: flex;
+            align-items: center;
+            background:
+                radial-gradient(ellipse at 82% 45%, rgba(18, 59, 112, .58) 0%, rgba(11, 18, 32, 0) 42%),
+                linear-gradient(120deg, #0b1220 0%, #101d32 58%, #0b1220 100%) !important;
+        }
+        #home .container { position: relative; z-index: 1; }
+        #home .badge.bg-info {
+            color: #061426 !important;
+            background-color: var(--portfolio-sky) !important;
+            border-radius: 10px;
+            letter-spacing: .2px;
+        }
+        #home h1 { color: var(--portfolio-white); line-height: 1.12; }
+        #home h2 { color: var(--portfolio-sky) !important; }
+        #home p.lead {
+            color: #ffffff !important;
+            max-width: 690px;
+            line-height: 1.8;
+        }
+        #home .btn-info {
+            --bs-btn-bg: var(--portfolio-sky);
+            --bs-btn-border-color: var(--portfolio-sky);
+            --bs-btn-hover-bg: #159bd2;
+            --bs-btn-hover-border-color: #159bd2;
+            --bs-btn-color: #061426;
+            --bs-btn-hover-color: #061426;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        #home .btn-outline-light {
+            border-radius: 12px;
+            border-width: 1.5px;
+            font-weight: 600;
+        }
+        #home .btn-outline-light:hover {
+            color: #061426;
+            background: var(--portfolio-white);
+        }
+        #home img {
+            width: clamp(210px, 20vw, 270px);
+            height: clamp(210px, 20vw, 270px);
+            object-fit: cover;
+            object-position: center;
+            border-color: var(--portfolio-sky) !important;
+            box-shadow: 0 0 0 10px rgba(40, 184, 242, .07), 0 18px 45px rgba(0, 0, 0, .28) !important;
+        }
+        #home .badge.bg-secondary {
+            background: var(--portfolio-blue) !important;
+            color: var(--portfolio-white);
+            border: 1px solid rgba(40, 184, 242, .25);
+            border-radius: 8px;
+        }
+        @media (min-width: 768px) {
+            #home .row { min-height: 460px; }
+            #home .col-md-5 { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        }
+        @media (max-width: 767.98px) {
+            #home { min-height: auto; text-align: center; }
+            #home .container { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+            #home h1 { font-size: clamp(2.5rem, 9vw, 3.5rem); }
+            #home p.lead { margin-left: auto; margin-right: auto; font-size: 1.05rem; }
+            #home .col-md-5 { margin-top: 2.5rem !important; }
+        }
+
+
+        /* Animated About + Skills sections */
+        #about, #skills { --section-navy: #0b1220; --section-blue: #1264d8; --section-sky: #28b8f2; }
+        #about { background: #f4f8fc; }
+        #about .section-title-bar, #skills .section-title-bar {
+            width: 100%;
+            background: linear-gradient(110deg, #0b1220 0%, #123b70 55%, #1264d8 100%);
+            padding: 1.15rem 1rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        #about .section-title-bar h2, #skills .section-title-bar h2 {
+            margin: 0;
+            color: #fff !important;
+            font-weight: 800;
+        }
+        #about .section-title-bar h2 span, #skills .section-title-bar h2 span {
+            color: #28b8f2 !important;
+        }
+        #about .section-title-bar p, #skills .section-title-bar p {
+            margin: .45rem 0 0;
+            color: rgba(255,255,255,.82) !important;
+        }
+        #about .card, #skills .card {
+            border-radius: 18px;
+            overflow: hidden;
+            transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+        }
+        #about .card:hover, #skills .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 38px rgba(11, 18, 32, .16) !important;
+        }
+        #about .card:first-child .card-body { position: relative; }
+        #about .card:first-child .display-6 { color: var(--section-sky) !important; }
+        #about .card-header.bg-primary { background: linear-gradient(115deg, #123b70, #1264d8) !important; }
+        #about .card-body > p { line-height: 1.85; }
+        #about .card-body > p:not(:last-child) { margin-bottom: 1.15rem; }
+        #about .card-body > p i { display: inline-block; transition: transform .3s ease, color .3s ease; }
+        #about .card-body > p:hover i { transform: translateX(5px) scale(1.18); color: #28b8f2 !important; }
+        #about .card:first-child .display-6 i { display: inline-block; animation: iconFloat 3s ease-in-out infinite; }
+        #about .card-header i { display: inline-block; animation: iconFloat 3s ease-in-out infinite; }
+
+        #skills { background: linear-gradient(180deg, #f8fbff 0%, #edf4fb 100%) !important; }
+        #skills .skill-card { background: #fff; border: 1px solid rgba(18, 59, 112, .08) !important; }
+        #skills .skill-visual {
+            min-height: 190px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            isolation: isolate;
+            color: white;
+            background: linear-gradient(135deg, #0b1220, #123b70);
+            transition: filter .35s ease;
+        }
+        #skills .skill-visual::before {
+            content: "";
+            position: absolute;
+            inset: -60%;
+            z-index: -1;
+            background: conic-gradient(from 0deg, transparent, rgba(40,184,242,.48), transparent 28%, rgba(18,100,216,.38), transparent 60%);
+            animation: skillOrbit 12s linear infinite;
+        }
+        #skills .skill-visual::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: .18;
+            background-image: linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+            background-size: 22px 22px;
+        }
+        #skills .skill-logo {
+            width: 86px;
+            height: 86px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 18px rgba(0,0,0,.28));
+            transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
+            animation: symbolFloat 3.5s ease-in-out infinite;
+        }
+        #skills .skill-caption {
+            position: absolute;
+            bottom: 12px;
+            left: 14px;
+            font-size: .76rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.76);
+        }
+        #skills .skill-level {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #fff;
+            background: rgba(5, 13, 28, .78);
+            opacity: 0;
+            transform: scale(.88);
+            transition: opacity .35s ease, transform .35s ease;
+            z-index: 2;
+        }
+        #skills .skill-level strong { font-size: 1.9rem; line-height: 1; }
+        #skills .skill-level span { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
+        #skills .skill-level .progress-ring {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: conic-gradient(#28b8f2 var(--skill-percent), rgba(255,255,255,.2) 0);
+            position: relative;
+        }
+        #skills .skill-level .progress-ring::before {
+            content: "";
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            background: #101d32;
+        }
+        #skills .skill-level .progress-ring strong { position: relative; font-size: 1.15rem; }
+        #skills .skill-card:hover .skill-level,
+        #skills .skill-card:focus-within .skill-level { opacity: 1; transform: scale(1); }
+        #skills .skill-card:hover .skill-logo,
+        #skills .skill-card:focus-within .skill-logo { transform: translateY(-8px) scale(.86) rotate(-4deg); }
+        #skills .skill-visual.html-visual { background: linear-gradient(135deg, #43151d, #e34b35); }
+        #skills .skill-visual.css-visual { background: linear-gradient(135deg, #102e63, #2479e8); }
+        #skills .skill-visual.bootstrap-visual { background: linear-gradient(135deg, #251247, #7952b3); }
+        #skills .skill-visual.js-visual { background: linear-gradient(135deg, #6d4a00, #f0bf24); }
+        #skills .skill-visual.js-visual .skill-level { color: #fff; }
+        #skills .skill-card .card-body { padding: 1.35rem 1rem 1.6rem; }
+        #skills .skill-card h5 { color: #0b1220; }
+        #skills .skill-card .badge { padding: .5rem .7rem; }
+        @keyframes skillOrbit { to { transform: rotate(360deg); } }
+        @keyframes symbolFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-6px) scale(1.04); } }
+        @keyframes iconFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @media (prefers-reduced-motion: reduce) {
+            #about *, #skills *, #about *::before, #skills *::before { animation: none !important; transition: none !important; }
+        }
+        @media (max-width: 575.98px) {
+            #skills .skill-visual { min-height: 145px; }
+            #skills .skill-logo { width: 68px; height: 68px; }
+            #skills .skill-caption { font-size: .62rem; left: 9px; }
+            #skills .skill-level .progress-ring { width: 62px; height: 62px; }
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#home">
+            <span class="text-info">Saeid</span> Portfolio
+        </a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <div class="navbar-nav ms-auto">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<section id="home" class="bg-dark text-white py-5">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-md-7 text-center text-md-start">
+                <span class="badge bg-info text-dark mb-3 p-2">
+                    Welcome To My Portfolio
+                </span>
+                <h1 class="display-4 fw-bold">
+                    Hi, I'm <span class="text-info">Saeid</span>
+                </h1>
+                <h2 class="h3 text-info mb-3">
+                    Web Developer
+                </h2>
+                <p class="lead text-white-50">
+                    I build modern, responsive and user-friendly websites
+                    using HTML, CSS, Bootstrap and JavaScript.
+                </p>
+                <a href="#projects" class="btn btn-info btn-lg me-2 mb-2">
+                    <i class="bi bi-briefcase me-1"></i>
+                    My Projects
+                </a>
+                <a href="#contact" class="btn btn-outline-light btn-lg mb-2">
+                    Contact Me
+                </a>
+            </div>
+            <div class="col-md-5 text-center mt-4 mt-md-0">
+                <img src="assets/img/1791146065012.png"
+                     alt="Saeid Profile"
+                     width="230"
+                     height="230"
+                     class="rounded-circle border border-4 border-info shadow">
+                <div class="mt-3">
+                    <span class="badge bg-secondary p-2">
+                        <i class="bi bi-code-slash me-1"></i>
+                        Creative Developer
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="about" class="py-5">
+    <div class="container-fluid px-0 py-3">
+        <div class="section-title-bar">
+            <h2>About <span>Me</span></h2>
+            <p>Get to know me better</p>
+        </div>
+        <div class="container">
+        <div class="row g-4 align-items-stretch">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100 about-card">
+                    <div class="card-body p-4">
+                        <div class="text-primary display-6 mb-3">
+                            <i class="bi bi-person-workspace"></i>
+                        </div>
+                        <h4 class="fw-bold">Who Am I?</h4>
+                        <p class="text-secondary">
+                            I am a passionate web developer who enjoys
+                            learning new technologies and creating
+                            useful digital experiences.
+                        </p>
+                        <p class="text-secondary">
+                            My goal is to build clean, responsive
+                            and easy-to-use websites.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-primary text-white p-3">
+                        <h5 class="mb-0">
+                            <i class="bi bi-person-lines-fill me-2"></i>
+                            Personal Information
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <i class="bi bi-person-fill text-primary me-2"></i>
+                            <strong>Name:</strong> Saeid
+                        </p>
+                        <p>
+                            <i class="bi bi-envelope-fill text-primary me-2"></i>
+                            <strong>Email:</strong> Saeidnass3r@gmail.com
+                        </p>
+                        <p>
+                            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                            <strong>Location:</strong> Egypt
+                        </p>
+                        <p class="mb-0">
+                            <i class="bi bi-code-slash text-primary me-2"></i>
+                            <strong>Role:</strong> Web Developer
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="bg-white py-5">
+    <div class="container-fluid px-0 py-3">
+        <div class="section-title-bar">
+            <h2>My <span>Skills</span></h2>
+            <p>Technologies I use to build websites</p>
+        </div>
+        <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="card skill-card border-0 shadow-sm h-100">
+                    <div class="skill-visual html-visual" tabindex="0" aria-label="HTML skill level 80 percent">
+                        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML logo" loading="lazy">
+                        <span class="skill-caption">Web structure</span>
+                        <div class="skill-level" aria-label="80 percent proficiency">
+                            <div class="progress-ring" style="--skill-percent: 80%"><strong>80%</strong></div>
+                            <span>My HTML level</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="fw-bold mt-1">HTML</h5>
+                        <span class="badge bg-danger">Structure</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card skill-card border-0 shadow-sm h-100">
+                    <div class="skill-visual css-visual" tabindex="0" aria-label="CSS skill level 75 percent">
+                        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS logo" loading="lazy">
+                        <span class="skill-caption">Visual styling</span>
+                        <div class="skill-level" aria-label="75 percent proficiency">
+                            <div class="progress-ring" style="--skill-percent: 75%"><strong>75%</strong></div>
+                            <span>My CSS level</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="fw-bold mt-1">CSS</h5>
+                        <span class="badge bg-primary">Styling</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card skill-card border-0 shadow-sm h-100">
+                    <div class="skill-visual bootstrap-visual" tabindex="0" aria-label="Bootstrap skill level 70 percent">
+                        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap logo" loading="lazy">
+                        <span class="skill-caption">Responsive layout</span>
+                        <div class="skill-level" aria-label="70 percent proficiency">
+                            <div class="progress-ring" style="--skill-percent: 70%"><strong>70%</strong></div>
+                            <span>My Bootstrap level</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="fw-bold mt-1">Bootstrap</h5>
+                        <span class="badge bg-info text-dark">Responsive</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card skill-card border-0 shadow-sm h-100">
+                    <div class="skill-visual js-visual" tabindex="0" aria-label="JavaScript skill level 60 percent">
+                        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript logo" loading="lazy">
+                        <span class="skill-caption">Web interaction</span>
+                        <div class="skill-level" aria-label="60 percent proficiency">
+                            <div class="progress-ring" style="--skill-percent: 60%"><strong>60%</strong></div>
+                            <span>My JavaScript level</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="fw-bold mt-1">JavaScript</h5>
+                        <span class="badge bg-warning text-dark">Interactive</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="py-5">
+    <div class="container py-3">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">
+                My <span class="text-primary">Projects</span>
+            </h2>
+            <p class="text-secondary">
+                Some projects I have worked on
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="https://placehold.co/600x400/0d6efd/ffffff?text=Student+System"
+                         class="card-img-top"
+                         alt="Student Management System">
+                    <div class="card-body p-4">
+                        <span class="badge bg-primary mb-2">Management</span>
+                        <h5 class="fw-bold">Student System</h5>
+                        <p class="text-secondary">
+                            A simple system for managing student records.
+                        </p>
+                        <a href="#" class="btn btn-outline-primary">
+                            View Project
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="https://placehold.co/600x400/212529/ffffff?text=My+Website"
+                         class="card-img-top"
+                         alt="Personal Website">
+                    <div class="card-body p-4">
+                        <span class="badge bg-dark mb-2">Portfolio</span>
+                        <h5 class="fw-bold">Personal Website</h5>
+                        <p class="text-secondary">
+                            A personal website to introduce skills and work.
+                        </p>
+                        <a href="#" class="btn btn-outline-primary">
+                            View Project
+                      <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                 </div>
+             </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="https://placehold.co/600x400/198754/ffffff?text=Online+Store"
+                         class="card-img-top"
+                         alt="Online Store">
+                    <div class="card-body p-4">
+                        <span class="badge bg-success mb-2">E-Commerce</span>
+                        <h5 class="fw-bold">Online Store</h5>
+                        <p class="text-secondary">
+                            A simple online store with product cards.
+                        </p>
+                        <a href="#" class="btn btn-outline-primary">
+                            View Project
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+</section>
+
+<section id="contact" class="bg-dark text-white py-5">
+    <div class="container py-3">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">
+                Contact <span class="text-info">Me</span>
+            </h2>
+            <p class="text-white-50">
+                Have a project in mind? Let's talk.
+            </p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="card border-0 shadow">
+                    <div class="card-body p-4">
+
+                        <form>
+                            <label class="form-label text-dark">
+                                Your Name
+                            </label>
+                            <input type="text"
+                                   class="form-control mb-3"
+                                   placeholder="Enter your name">
+                           <label class="form-label text-dark">
+                                Your Email
+                            </label>
+                          <input type="email"
+                                   class="form-control mb-3"
+                                   placeholder="name@example.com">
+                            <label class="form-label text-dark">
+                                Your Message
+                            </label>
+                            <textarea class="form-control mb-3"
+                                      rows="4"
+                                      placeholder="Write your message"></textarea>
+                            <button type="button" class="btn btn-primary w-100">
+                                <i class="bi bi-send me-2"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="bg-black text-white text-center py-4">
+    <div class="container">
+        <h5 class="fw-bold">
+            Saeid Portfolio
+        </h5>
+        <p class="text-white-50 mb-2">
+            Building ideas into websites.
+        </p>
+        <p class="mb-0">
+            &copy; 2026 Saeid. All Rights Reserved.
+        </p>
+    </div>
+</footer>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>
